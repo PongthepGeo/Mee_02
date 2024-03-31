@@ -81,3 +81,20 @@ def plot_ONI(data, output_folder):
     plt.legend()
     plt.savefig(output_folder + "/ONI.png", format='png', bbox_inches='tight', pad_inches=0, transparent=False)
     plt.show()
+
+def plot_box(df_metrics):
+    metrics = ['Precision', 'Recall', 'F1_Score', 'Accuracy']
+    data_to_plot = [df_metrics[metric].values for metric in metrics]
+    positions = np.arange(1, len(metrics) + 1)
+
+    # Plotting
+    fig, ax = plt.subplots(figsize=(12, 6))
+    bp = ax.boxplot(data_to_plot, positions=positions, widths=0.4,
+                    patch_artist=True, boxprops=dict(facecolor="skyblue"), flierprops=dict(markerfacecolor='g', marker='D'))
+    ax.set_xticks(positions)
+    ax.set_xticklabels(metrics)
+    plt.title('TabNet Model Metrics')
+    plt.grid(True, axis='y', linestyle='--', alpha=0.7)
+    plt.subplots_adjust(wspace=0.3)
+    plt.savefig('figures/tabnet_boxplots.png', format='png', bbox_inches='tight', transparent=True, pad_inches=0.1)
+    plt.show()
